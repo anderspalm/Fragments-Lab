@@ -1,6 +1,7 @@
 package com.ga.android.myapplication;
 
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
@@ -10,26 +11,32 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-    int mPageCount;
+//    int mPageCount;
 
-    public SectionsPagerAdapter(FragmentManager fm, int pageCount) {
+    private  PlaceholderFragment.OnListItemClickListener monListItemClickListener;
+
+//    public SectionsPagerAdapter(FragmentManager fm, int pageCount) {
+    public SectionsPagerAdapter(FragmentManager fm, PlaceholderFragment.OnListItemClickListener listener) {
+//        super(fm);
+//        mPageCount = pageCount;
         super(fm);
-        mPageCount = pageCount;
+        monListItemClickListener = listener;
     }
 
     @Override
     public Fragment getItem(int position) {
-        switch (position){
-            //Complete this
-            default: return new PlaceholderFragment();
-        }
-
+//        switch (position){
+//            //Complete this
+//            default: return new PlaceholderFragment();
+//        }
+        return PlaceholderFragment.newInstance(position, monListItemClickListener);
     }
 
     @Override
     public int getCount() {
         // Show 3 total pages.
-        return mPageCount;
+//        return mPageCount;
+    return 3;
     }
 
     @Override

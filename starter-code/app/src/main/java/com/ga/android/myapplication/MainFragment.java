@@ -10,13 +10,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 /**
  * Created by alanjcaceres on 7/19/16.
  */
 
 public class MainFragment extends Fragment {
-
+    ListView mListView;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -32,13 +33,21 @@ public class MainFragment extends Fragment {
      */
     private ViewPager mViewPager;
     private TabLayout tabLayout;
-    private Toolbar toolbar;
+
+    private PlaceholderFragment.OnListItemClickListener monListItemClickListener;
+
+    public static Fragment newInstance(PlaceholderFragment.OnListItemClickListener listener){
+        MainFragment fragment = new MainFragment();
+        fragment.monListItemClickListener = listener;
+        return fragment;
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+
         // Get a reference to the ViewPager
         mViewPager = (ViewPager) rootView.findViewById(R.id.container);
 
@@ -52,11 +61,9 @@ public class MainFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        toolbar.setTitle("UserInfoTabs");
-        // Create the adapter that will return a fragment for each of the three
+        // Create the adapter that will return a fragment for each of the\ three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager(), 3);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager(), monListItemClickListener);
 
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
